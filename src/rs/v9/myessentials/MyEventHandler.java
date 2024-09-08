@@ -128,7 +128,7 @@ public class MyEventHandler implements Listener {
 
                 for(int x = 0; x < 16; x++){
                     for(int z = 0; z < 16; z++){
-                        for(int y = 0; y < chunk.getWorld().getHighestBlockAt(
+                        for(int y = chunk.getWorld().getLogicalHeight(); y < chunk.getWorld().getHighestBlockAt(
                                 (int)chunk.getBlock(x, 0, z).getLocation().getX(),
                                 (int)chunk.getBlock(x, 0, z).getLocation().getZ()).getY(); y++){
                             Block block = chunk.getBlock(x, y, z);
