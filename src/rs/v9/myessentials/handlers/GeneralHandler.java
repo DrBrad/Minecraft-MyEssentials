@@ -16,7 +16,7 @@ import static rs.v9.myessentials.Main.plugin;
 public class GeneralHandler {
 
     private static ArrayList<Player> teleport = new ArrayList<>();
-    private static HashMap<Player, Location> lastTeleport = new HashMap();
+    public static HashMap<Player, Location> lastTeleport = new HashMap();
 
     public static void sendTitle(Player player, String title, String subtitle, int fadeIn, int stay, int fadeOut) {
         try {

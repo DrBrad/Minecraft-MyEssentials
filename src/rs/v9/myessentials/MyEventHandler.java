@@ -8,12 +8,10 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.*;
 import org.bukkit.event.block.*;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import static rs.v9.myessentials.Config.*;
 import static rs.v9.myessentials.handlers.BlockHandler.*;
@@ -53,6 +51,11 @@ public class MyEventHandler implements Listener {
 
     @EventHandler
     public void onRespawn(PlayerRespawnEvent event){
+    }
+
+    @EventHandler
+    public void onDeath(PlayerDeathEvent event){
+        lastTeleport.put(event.getEntity().getPlayer(), Objects.requireNonNull(event.getEntity().getPlayer()).getLocation());
     }
 
     @EventHandler
