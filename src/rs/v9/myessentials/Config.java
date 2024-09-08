@@ -20,15 +20,11 @@ public class Config {
     private static HashMap<String, Location> warps = new HashMap<>();
     private static HashMap<Player, Player> playerTeleport = new HashMap<>();
 
-    private static int teleportDelay = 2,
-            XRayRadius = 2,
-            maxShulkers = 2;
+    private static int teleportDelay = 2, XRayRadius = 2;
 
     private static boolean backTeleport = true,
             homeTeleport = true,
             XRay = false;
-
-    private static ArrayList<Material> antiWaterLogWhiteList = new ArrayList<>();
 
     public Config(){
         if(!plugin.getDataFolder().exists()){
@@ -46,14 +42,6 @@ public class Config {
 
                 XRay = config.getBoolean("anti-xray.enabled");
                 XRayRadius = config.getInt("anti-xray.radius");
-
-                List<String> waterLoggedWhiteList = config.getStringList("anti-water-logging.white-list-blocks");
-                for(String name : waterLoggedWhiteList){
-                    Bukkit.getLogger().info(name);
-                    antiWaterLogWhiteList.add(Material.valueOf(name));
-                }
-
-                maxShulkers = config.getInt("ender-chest.max-shulkers");
 
                 if(config.contains("spawn")){
                     spawn = new Location(Bukkit.getWorld(config.getString("spawn.world")),
@@ -81,12 +69,6 @@ public class Config {
 
                 config.set("anti-xray.enabled", false);
                 config.set("anti-xray.radius", 2);
-
-                config.set("anti-water-logging.enabled", true);
-                config.set("anti-water-logging.white-list-blocks", Arrays.asList(Material.CONDUIT.name()));
-                antiWaterLogWhiteList.add(Material.CONDUIT);
-
-                config.set("ender-chest.max-shulkers", 2);
 
                 config.save(configFile);
             }
@@ -128,14 +110,6 @@ public class Config {
 
     public static int getXRayRadius(){
         return XRayRadius;
-    }
-
-    public static List<Material> getAntiWaterLogWhiteList(){
-        return antiWaterLogWhiteList;
-    }
-
-    public static int getMaxShulkers(){
-        return maxShulkers;
     }
 
     public static void setSpawn(Location location){
