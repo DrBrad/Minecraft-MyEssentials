@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="MyEssentials:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/MyEssentials_jar</output-path>
+    <root id="archive" name="MyEssentials.jar">
+      <element id="module-output" name="MyEssentials" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/json-20230227.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/spigot-api-1.21.1-R0.1-20240907.094015-22.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

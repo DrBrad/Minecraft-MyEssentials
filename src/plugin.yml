@@ -1,0 +1,101 @@
+name: MyEssentials
+version: 1.0
+author: DrBrad
+main: rs.v9.myessentials.Main
+description: Im the best there is plain and simple, I mean I wake up and piss excellence
+api-version: 1.21
+commands:
+  warp:
+    description: Warp to a location.
+    usage: |
+      /warp WARP_NAME
+  warps:
+    description: List of server warps.
+    usage: |
+      /warps
+  setwarp:
+    description: Set server warp location.
+    usage: |
+      /setwarp WARP_NAME
+  delwarp:
+    description: Delete a server warp.
+    usage: |
+      /delwarp WARP_NAME
+  home:
+    description: Teleport to your home.
+    usage: |
+      /home
+  sethome:
+    description: Set your home.
+    usage: |
+      /sethome
+  spawn:
+    description: Teleport to server spawn.
+    usage: |
+      /spawn
+  setspawn:
+    description: Set server spawn.
+    usage: |
+      /setspawn
+  tpa:
+    description: Teleport to player.
+    usage: |
+      /tpa PLAYER_NAME
+  tpaa:
+    description: Accept players teleport request.
+    usage: |
+      /tpaa
+  tpad:
+    description: Deny players teleport request.
+    usage: |
+      /tpad
+  msg:
+    description: Message another player in private.
+    usage: |
+      /msg PLAYER_NAME
+  gamemode:
+    description: Change your gamemode
+    usage: |
+      /gamemode MODE
+  back:
+    description: Teleport back to previous location.
+    usage: |
+      /back
+
+permissions:
+  warp:
+    default: true
+    description: Warp to a location.
+  warps:
+    default: true
+    description: List of server warps.
+  setwarp:
+    default: false
+    description: Set server warp location.
+  delwarp:
+    default: false
+    description: Delete a server warp.
+  home:
+    default: true
+    description: Teleport to your home.
+  sethome:
+    default: true
+    description: Set your home.
+  spawn:
+    default: true
+    description: Teleport to server spawn.
+  setspawn:
+    default: false
+    description: Set server spawn.
+  tpa:
+    default: true
+    description: Teleport to player.
+  msg:
+    default: true
+    description: Message another player in private.
+  gamemode:
+    default: false
+    description: Change your gamemode
+  back:
+    default: true
+    description: Teleport back to previous location.
