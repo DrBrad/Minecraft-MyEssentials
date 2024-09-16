@@ -10,6 +10,7 @@ import org.bukkit.event.*;
 import org.bukkit.event.block.*;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.*;
+import org.bukkit.event.world.ChunkUnloadEvent;
 
 import java.util.*;
 
@@ -21,7 +22,6 @@ import static rs.v9.myessentials.handlers.PlayerResolver.*;
 
 public class MyEventHandler implements Listener {
 
-    private static HashMap<Player, UUID> enteredClaim = new HashMap<>();
     private HashMap<UUID, ArrayList<Location>> xray = new HashMap<>();
 
     @EventHandler
@@ -86,6 +86,18 @@ public class MyEventHandler implements Listener {
                     isNextToOre(event.getPlayer(), event.getBlock());
                 }
             }
+        }
+    }
+
+    @EventHandler
+    public void onPlayerDeath(PlayerDeathEvent event){
+        event.setDeathMessage("§7"+event.getDeathMessage());
+    }
+
+    @EventHandler
+    public void onMove(PlayerMoveEvent event){
+        if(isXRay()){
+            antiXRay(event.getPlayer(), event.getPlayer().getLocation().getChunk());
         }
     }
 
