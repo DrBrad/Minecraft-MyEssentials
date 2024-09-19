@@ -1,6 +1,10 @@
 package rs.v9.myessentials;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.inventory.FurnaceRecipe;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import rs.v9.myessentials.handlers.PlayerCooldown;
@@ -35,9 +39,25 @@ public class Main extends JavaPlugin {
         new Config();
         new PlayerResolver();
         new PlayerCooldown();
+
+        createRecipes();
     }
 
     @Override
     public void onDisable(){
+    }
+
+    private void createRecipes(){
+        ShapedRecipe spawner = new ShapedRecipe(new ItemStack(Material.SPAWNER, 1));
+
+        spawner.shape("NNN","NTN","NNN");
+
+        spawner.setIngredient('N', Material.NETHERITE_INGOT);
+        spawner.setIngredient('T', Material.TOTEM_OF_UNDYING);
+
+        getServer().addRecipe(spawner);
+
+
+        getServer().addRecipe(new FurnaceRecipe(new ItemStack(Material.LEATHER), Material.ROTTEN_FLESH));
     }
 }

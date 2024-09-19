@@ -1,16 +1,17 @@
 package rs.v9.myessentials;
 
-import org.bukkit.Chunk;
-import org.bukkit.Color;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.block.CreatureSpawner;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.*;
 import org.bukkit.event.block.*;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.event.world.ChunkUnloadEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
 
@@ -78,6 +79,38 @@ public class MyEventHandler implements Listener {
         event.setFormat("§6[§c"+event.getPlayer().getName()+"§6]§7: "+event.getMessage());
     }
 
+    @EventHandler
+    public void onBlockPlace(BlockPlaceEvent event){
+        Block block = event.getBlockPlaced();
+        Material material = block.getType();
+
+        if(material == Material.SPAWNER){
+            CreatureSpawner type = (CreatureSpawner) block.getState();
+            type.setSpawnedType(EntityType.AREA_EFFECT_CLOUD);
+            type.update(true, false);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent event){
+        Player player = event.getPlayer();
+        Material material = player.getItemInHand().getType();
+
+        if(event.getAction() == Action.RIGHT_CLICK_BLOCK && event.getClickedBlock().getType() == Material.SPAWNER){
+            if(material == Material.BLAZE_SPAWN_EGG){
+                if(event.getClickedBlock().getWorld().getEnvironment() != World.Environment.NETHER){
+                    player.sendMessage("§7Sorry, you can make blaze spawners in the §cNether§7.");
+                    event.setCancelled(true);
+                }
+            }else if(material != Material.SKELETON_SPAWN_EGG && material != Material.ZOMBIE_SPAWN_EGG && material != Material.BLAZE_SPAWN_EGG &&
+                    material != Material.SPIDER_SPAWN_EGG && material != Material.SILVERFISH_SPAWN_EGG && material != Material.MAGMA_CUBE_SPAWN_EGG &&
+                    material != Material.CAVE_SPIDER_SPAWN_EGG && material != Material.PIG_SPAWN_EGG){
+                player.sendMessage("§cSorry, you cant make a spawner with this creature.");
+                event.setCancelled(true);
+            }
+        }
+    }
+
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onBlockBreak(BlockBreakEvent event){
         if(isXRay()){
@@ -85,6 +118,51 @@ public class MyEventHandler implements Listener {
                 if(xray.containsKey(event.getPlayer())){
                     isNextToOre(event.getPlayer(), event.getBlock());
                 }
+            }
+        }
+
+        Block block = event.getBlock();
+        Material material = block.getType();
+
+        if(material == Material.SPAWNER &&
+                event.getPlayer().getInventory().getItemInMainHand().getEnchantments().containsKey(Enchantment.SILK_TOUCH)){
+            CreatureSpawner type = (CreatureSpawner) block.getState();
+            EntityType mobtype = type.getSpawnedType();
+
+            event.getBlock().getDrops().clear();
+
+            switch(mobtype.name()){
+                case "SKELETON":
+                    block.getWorld().dropItem(block.getLocation(), new ItemStack(Material.SKELETON_SPAWN_EGG));
+                    break;
+
+                case "ZOMBIE":
+                    block.getWorld().dropItem(block.getLocation(), new ItemStack(Material.ZOMBIE_SPAWN_EGG));
+                    break;
+
+                case "BLAZE":
+                    block.getWorld().dropItem(block.getLocation(), new ItemStack(Material.BLAZE_SPAWN_EGG));
+                    break;
+
+                case "SPIDER":
+                    block.getWorld().dropItem(block.getLocation(), new ItemStack(Material.SPIDER_SPAWN_EGG));
+                    break;
+
+                case "SILVERFISH":
+                    block.getWorld().dropItem(block.getLocation(), new ItemStack(Material.SILVERFISH_SPAWN_EGG));
+                    break;
+
+                case "MAGMA_CUBE":
+                    block.getWorld().dropItem(block.getLocation(), new ItemStack(Material.MAGMA_CUBE_SPAWN_EGG));
+                    break;
+
+                case "CAVE_SPIDER":
+                    block.getWorld().dropItem(block.getLocation(), new ItemStack(Material.CAVE_SPIDER_SPAWN_EGG));
+                    break;
+
+                case "PIG":
+                    block.getWorld().dropItem(block.getLocation(), new ItemStack(Material.PIG_SPAWN_EGG));
+                    break;
             }
         }
     }
