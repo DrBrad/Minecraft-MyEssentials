@@ -170,7 +170,7 @@ public class MyEventHandler implements Listener {
 
     @EventHandler
     public void onCreatureSpawn(CreatureSpawnEvent event){
-        if(event.getSpawnReason().equals(CreatureSpawnEvent.SpawnReason.NATURAL)){
+        if(!event.getSpawnReason().equals(CreatureSpawnEvent.SpawnReason.NATURAL)){
             event.setCancelled(true);
         }
     }
