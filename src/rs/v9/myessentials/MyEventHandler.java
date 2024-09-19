@@ -8,6 +8,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.*;
 import org.bukkit.event.block.*;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.event.world.ChunkUnloadEvent;
@@ -164,6 +165,13 @@ public class MyEventHandler implements Listener {
                     block.getWorld().dropItem(block.getLocation(), new ItemStack(Material.PIG_SPAWN_EGG));
                     break;
             }
+        }
+    }
+
+    @EventHandler
+    public void onCreatureSpawn(CreatureSpawnEvent event){
+        if(event.getSpawnReason().equals(CreatureSpawnEvent.SpawnReason.NATURAL)){
+            event.setCancelled(true);
         }
     }
 
